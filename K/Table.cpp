@@ -24,6 +24,7 @@ void Table::write()
 }
 Cell* Table::getCell(int row, int col)
 {
+	throw "Not implemented";
 	//провер€ет, сущестувет ли €чейка с данными координатами
 	// возвращает NULL если нет - иначе возвращает указатель на €чейку
 }

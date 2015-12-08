@@ -4,8 +4,10 @@
 using namespace std;
 class Table //Singleton
 {
-public: int row, col; //table size
-		vector<vector<Cell>> table;
+public: 
+	int row; //table size
+	int col; //table size
+	
  	static Table & Instance()
 	{
 		// It **is** thread-safe in C++11.
@@ -20,13 +22,16 @@ public: int row, col; //table size
 	Table& operator=(Table const&) = delete;  // Copy assign
 	Table& operator=(Table &&) = delete;      // Move assign
 
-													  // Any other public methods
+
 	void read();
 	void calculate();
 	void write();
 
 	Cell* getCell(int row, int col);
-	
+private:
+	vector<vector<Cell>> table;
+
+
 protected:
 	Table()
 	{

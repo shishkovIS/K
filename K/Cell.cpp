@@ -1,12 +1,10 @@
 #include "Cell.h"
 
 
-
 Cell::Cell()
 {
 
 }
-
 
 Cell::~Cell()
 {
@@ -14,23 +12,23 @@ Cell::~Cell()
 }
 void Cell::compute()
 {
-
+	
 }
-Cell::type Cell::get_type()
+Cell::Type Cell::get_type()
 {
-
+	return cell_type;
 }
 
 int Cell::get_int()
 {
-
+	throw "Not implemented";
 }
-string Cell::get_string()
+const string Cell::get_string()
 {
-
+	throw "Not implemented";
 }
 
-void Cell::set_initial_value()
+void Cell::set_initial_value(const char * source)
 {
-
+	this->source = source;
 }
