@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="ErrorType.h" />
     <ClInclude Include="Expression_Manager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Table.h" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="ErrorType.cpp" />
     <ClCompile Include="Expression_Manager.cpp" />
     <ClCompile Include="K.cpp" />
     <ClCompile Include="stdafx.cpp" />
