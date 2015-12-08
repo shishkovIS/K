@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 
+#include "ErrorType.h"
 using namespace std;
 class Cell
 {
@@ -16,7 +17,7 @@ public: enum type {
 		string result;
 		int result;
 		bool processing;
-		int error_type; // структура ошибки
+		ErrorType::Type error_type; // структура ошибки
 
 	Cell();
 	~Cell();

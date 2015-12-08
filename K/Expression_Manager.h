@@ -3,6 +3,7 @@
 #include <pair>
 #include <string>
 
+#include "ErrorType.h"
 using namespace std;
 
 class Expression_Manager
@@ -10,7 +11,7 @@ class Expression_Manager
 	
 public: vector<pair<string, char>> operands;
 		int result;
-		int error; // must be error type
+		ErrorType::Type error;
 
 		bool compute();
 		int get_value();
