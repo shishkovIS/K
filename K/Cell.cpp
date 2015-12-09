@@ -25,7 +25,8 @@ int Cell::get_int()
 }
 const string Cell::get_string()
 {
-	throw "Not implemented";
+	return source;
+	//throw "Not implemented";
 }
 
 void Cell::set_initial_value(const char * source)

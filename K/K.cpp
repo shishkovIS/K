@@ -20,6 +20,8 @@ int main()
 	{
 		cout << exception;
 	}
+	char t;
+	cin >> t;
 	return 0;
 }
 

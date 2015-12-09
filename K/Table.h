@@ -1,7 +1,12 @@
-#include "Cell.h"
+#include <iostream>
 #include <vector>
+#include <regex>
+#include <string>
+
+#include "Cell.h"
 
 using namespace std;
+
 class Table //Singleton
 {
 public: 
@@ -29,8 +34,8 @@ public:
 
 	Cell* getCell(int row, int col);
 private:
-	vector<vector<Cell>> table;
-
+	Cell ** table;
+	void read_size();
 
 protected:
 	Table()
