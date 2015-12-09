@@ -20,8 +20,9 @@ int main()
 	{
 		cout << exception;
 	}
-	char t;
-	cin >> t;
+#ifdef CONSOLE_DEBUG
+	cin.get();
+#endif
 	return 0;
 }
 

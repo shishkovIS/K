@@ -9,10 +9,10 @@ void Table::read()
 	read_size();
 
 	// memory allocation
-	table = new Cell*[row];
+	table.resize(row);
 	for (int row_index = 0; row_index < row; row_index++)
 	{
-		table[row_index] = new Cell[col];
+		table[row_index].resize(col);
 	}
 
 	// read lines
