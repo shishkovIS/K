@@ -27,7 +27,7 @@ public:
 	const string get_string();
 	// Get cell value
 	int get_int();
-
+	
 	// Initialize cell
 	void set_initial_value(const char * source);
 

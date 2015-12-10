@@ -3,7 +3,7 @@
 
 Cell::Cell()
 {
-
+	this->cell_type = Cell::UNKNOWN;
 }
 
 Cell::~Cell()
