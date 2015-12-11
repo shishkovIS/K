@@ -30,8 +30,7 @@ void Table::read()
 			if ((t == '\n' || t == EOF) &&
 				(colNumber < (col - 1))) // not last column
 			{
-				// TODO: add row number
-				throw (string("Some cells are missing on row"));
+				throw (string("Some cells are missing in the row "+std::to_string(lineNumber+1)));
 			}
 
 			buff.push_back('\0');
@@ -43,8 +42,7 @@ void Table::read()
 
 		if (t != '\n' && t != EOF) // if there are else cells on this row
 		{
-			// TODO: add row number
-			throw (string("There are some excess cells on row"));
+			throw (string("Wrong cell number in the row "+std::to_string(lineNumber+1)));
 		}
 		if (t == EOF &&
 			lineNumber < (row - 1)) // not last row
