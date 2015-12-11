@@ -4,6 +4,7 @@
 Cell::Cell()
 {
 	this->cell_type = Cell::UNKNOWN;
+	this->processing = false;
 }
 
 Cell::~Cell()
@@ -12,10 +13,16 @@ Cell::~Cell()
 }
 void Cell::compute()
 {
+	
 	const regex is_number("^[0-9]+$");
 	if (this->cell_type != Cell::UNKNOWN)
 		return;
-
+	if (this->processing)
+	{
+		this->cell_type = Cell::ERROR;
+		this->error_type = ErrorType::LOOPING;
+		return;
+	}
 	if (this->source.empty())
 	{
 		this->cell_type = Cell::EMPTY;
@@ -27,6 +34,7 @@ void Cell::compute()
 	}
 	else if (this->source[0] == '=')
 	{
+		processing = true;
 		Expression_Manager em(this->source.substr(1));
 		if (!em.compute())
 		{
@@ -39,6 +47,7 @@ void Cell::compute()
 			this->result_int = em.get_value();
 			this->result_string = to_string(this->result_int);
 		}
+		processing = false;
 	}
 	else if (regex_match(this->source, is_number))
 	{
@@ -56,6 +65,11 @@ void Cell::compute()
 Cell::Type Cell::get_type()
 {
 	return cell_type;
+}
+
+ErrorType::Type Cell::get_error()
+{
+	return this->error_type;
 }
 
 int Cell::get_int()

@@ -39,8 +39,6 @@ public:
 private:
 	vector< vector<Cell> > table;
 	void read_size();
-
-protected:
 	Table()
 	{
 		// Constructor code goes here.
@@ -50,6 +48,8 @@ protected:
 	{
 		// Destructor code goes here.
 	}
+
+protected:
 
 	// And any other protected methods.
 };

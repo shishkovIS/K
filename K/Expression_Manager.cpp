@@ -1,5 +1,5 @@
 #include "Expression_Manager.h"
-
+#include <iostream>
 Expression_Manager::Expression_Manager()
 {
 }
@@ -16,10 +16,12 @@ Expression_Manager::Expression_Manager(string expression)
 
 bool Expression_Manager::split_expression()
 {
+	
 	if (!check_expression())
 		return false;
-
+	
 	string str = this->expression;
+	
 	std::size_t prev_pos = 0;
 	std::size_t pos;
 	char current_delimiter;
@@ -42,14 +44,20 @@ bool Expression_Manager::split_expression()
 
 bool Expression_Manager::check_expression()
 {
-	regex expression_regex("^((((0|[1-9][0-9]*)|([A-Z][1-9]))(\+|-|\*|\/))*((0|[1-9][0-9]*)|([A-Z][1-9])))$");
+	regex expression_regex("^((((0|([1-9][0-9]*))|([A-Z][1-9]))(\\+|-|\\*|\\/))*((0|([1-9][0-9]*))|([A-Z][1-9])))$");	
+	
 	return regex_match(this->expression, expression_regex);
+	
+	
 }
 bool Expression_Manager::compute()
 {
 	if (!split_expression())
+	{
+		this->error = ErrorType::PARSING_ERROR;
 		return false;
-
+		
+	}
 	int expression_value = 0;
 
 	int vector_size = this->operands.size();
@@ -119,7 +127,10 @@ int Expression_Manager::get_cell_value(string operand)
 		cell->compute();
 	if ((cell->get_type() == Cell::ERROR) || (cell->get_type() == Cell::STRING) || (cell->get_type() == Cell::EMPTY))
 	{
-		this->error = ErrorType::INCORRECT_CELL_TYPE;
+		if (cell->get_error() == ErrorType::LOOPING)
+			this->error = ErrorType::LOOPING;
+		else
+			this->error = ErrorType::INCORRECT_CELL_TYPE;
 		return 0;
 	} 
 

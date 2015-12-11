@@ -24,6 +24,7 @@ public:
 	void compute();
 
 	Type get_type(); 
+	ErrorType::Type get_error();
 
 	// Get cell value
 	const string get_string();
