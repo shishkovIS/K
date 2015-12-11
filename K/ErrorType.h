@@ -9,7 +9,8 @@ public:
 		LOOPING = 1,
 		INCORRECT_CELL_TYPE = 2,
 		PARSING_ERROR = 3,
-		INCORRECT_CELL_FORMAT = 4
+		INCORRECT_CELL_FORMAT = 4,
+		DIV_BY_ZERO = 5
 	};
 	
 	/// get string with comment for error (ErrorType::Type)

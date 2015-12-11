@@ -103,10 +103,17 @@ int Expression_Manager::get_signed_operand(int old_value, int index)
 		return old_value *= current_value;
 		break;
 	case '/':
-		return old_value /= current_value;
+		if (current_value == 0)
+		{
+			this->error = ErrorType::DIV_BY_ZERO;
+			return 0;
+		} 
+		else 
+			return old_value /= current_value;
+
 		break;
 	}
-	throw (string("ERROR: unknown sign"));
+	
 }
 
 int Expression_Manager::get_cell_value(string operand)
