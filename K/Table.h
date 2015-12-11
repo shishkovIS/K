@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <regex>
@@ -6,6 +7,8 @@
 #include "Cell.h"
 
 using namespace std;
+
+class Cell;
 
 class Table //Singleton
 {

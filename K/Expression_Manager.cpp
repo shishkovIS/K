@@ -1,7 +1,4 @@
 #include "Expression_Manager.h"
-#include <regex>
-#include "Cell.h"
-#include "Table.h"
 
 Expression_Manager::Expression_Manager()
 {
@@ -23,7 +20,8 @@ bool Expression_Manager::split_expression()
 		return false;
 
 	string str = this->expression;
-	std::size_t prev_pos = 0, pos;
+	std::size_t prev_pos = 0;
+	std::size_t pos;
 	char current_delimiter;
 
 	while ((pos = str.find_first_of("+-/*", prev_pos)) != std::string::npos)
@@ -64,6 +62,8 @@ bool Expression_Manager::compute()
 
 	}
 	
+	this->result = expression_value;
+
 	if (this->error != ErrorType::NO_ERRORS)
 		return false;
 	else return true;
@@ -80,7 +80,8 @@ int Expression_Manager::get_signed_operand(int old_value, int index)
 		current_value = stoi(operands[index].first);
 	else if (check_cell(operands[index].first))
 		current_value = get_cell_value(operands[index].first);
-
+	else
+		this->error = ErrorType::PARSING_ERROR;
 
 	switch (operands[index].second)
 	{
@@ -97,7 +98,7 @@ int Expression_Manager::get_signed_operand(int old_value, int index)
 		return old_value /= current_value;
 		break;
 	}
-
+	throw (string("ERROR: unknown sign"));
 }
 
 int Expression_Manager::get_cell_value(string operand)
@@ -116,10 +117,9 @@ int Expression_Manager::get_cell_value(string operand)
 
 	if (cell->get_type() == Cell::UNKNOWN)
 		cell->compute();
-	if ((cell->get_type() == Cell::ERROR) || (cell->get_type() == Cell::STRING) || (cell->get_type() == Cell::STRING))
+	if ((cell->get_type() == Cell::ERROR) || (cell->get_type() == Cell::STRING) || (cell->get_type() == Cell::EMPTY))
 	{
-		//kmnhouih
-		this->error = ErrorType::PARSING_ERROR;
+		this->error = ErrorType::INCORRECT_CELL_TYPE;
 		return 0;
 	} 
 
@@ -149,10 +149,20 @@ int Expression_Manager::get_value()
 }
 int Expression_Manager::get_row(string operand)
 {
-	return static_cast<int>(operand[1]) - 48;
+	if (operand[1] >= '0' && operand[1] <= '9')
+		return static_cast<int>(operand[1]) - '0';
+
+	return 0;
 }
 
 int Expression_Manager::get_col(string operand)
 {
-	return static_cast<int>(operand[0]) - 64;
+	if (operand[0] >= 'A' && operand[0] <= 'Z')
+		return static_cast<int>(operand[0]) - 'A';
+	
+	if (operand[0] >= 'a' && operand[0] <= 'z')
+		return static_cast<int>(operand[0]) - 'a';
+	
+	throw (string("ERROR: Incorrect cell number"));
+
 }

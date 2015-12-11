@@ -3,7 +3,10 @@
 #include <utility> // pair
 #include <vector>
 #include <string>
+#include <regex>
 
+#include "Cell.h"
+#include "Table.h"
 #include "ErrorType.h"
 using namespace std;
 
@@ -12,19 +15,19 @@ class Expression_Manager
 	
 public: 
 	bool compute();
-	//ughugh
 	ErrorType::Type get_error();
 	int get_value();
 	
-	Expression_Manager();
+
 	Expression_Manager(string expression);
 	~Expression_Manager();
 private:
-
 	ErrorType::Type error;
 	vector<pair<string, char>> operands;
 	int result;
 	string expression;
+
+	Expression_Manager();
 
 	bool check_expression();
 	bool split_expression();

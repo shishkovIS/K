@@ -1,8 +1,10 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <regex>
 
 #include "ErrorType.h"
+#include "Expression_Manager.h"
 using namespace std;
 class Cell
 {

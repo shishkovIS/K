@@ -1,6 +1,4 @@
 #include "Table.h"
-#include "Cell.h"
-
 
 
 void Table::read()
@@ -67,7 +65,9 @@ void Table::read()
 
 void Table::calculate()
 {
-	// запуск вычислени€ последовательно дл€ каждой €чейки
+	for (int i = 0; i < row; i++)
+		for (int j = 0; j < col; j++)
+			table[i][j].compute();
 }
 
 void Table::write()
@@ -80,13 +80,13 @@ void Table::write()
 		}
 		cout << endl;
 	}
-	// вывод результирующей таблицы на экран
 }
 Cell* Table::getCell(int row, int col)
 {
-	throw (string("Not implemented"));
-	//провер€ет, сущестувет ли €чейка с данными координатами
-	// возвращает NULL если нет - иначе возвращает указатель на €чейку
+	if (row >= 1 && row <= this->row &&
+		col >= 0 && col < this->col)
+		return &table[row-1][col];
+	return NULL;
 }
 
 

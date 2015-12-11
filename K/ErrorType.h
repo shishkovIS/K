@@ -8,7 +8,8 @@ public:
 		NO_ERRORS = 0,
 		LOOPING = 1,
 		INCORRECT_CELL_TYPE = 2,
-		PARSING_ERROR = 3
+		PARSING_ERROR = 3,
+		INCORRECT_CELL_FORMAT = 4
 	};
 	
 	/// get string with comment for error (ErrorType::Type)

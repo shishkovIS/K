@@ -12,7 +12,46 @@ Cell::~Cell()
 }
 void Cell::compute()
 {
-	
+	const regex is_number("^[0-9]+$");
+	if (this->cell_type != Cell::UNKNOWN)
+		return;
+
+	if (this->source.empty())
+	{
+		this->cell_type = Cell::EMPTY;
+	}
+	else if (this->source[0] == '\'')
+	{
+		this->cell_type = Cell::STRING;
+		this->result_string = this->source.substr(1);
+	}
+	else if (this->source[0] == '=')
+	{
+		Expression_Manager em(this->source.substr(1));
+		if (!em.compute())
+		{
+			this->cell_type = Cell::ERROR;
+			this->error_type = em.get_error();
+		}
+		else
+		{
+			this->cell_type = Cell::NUMBER;
+			this->result_int = em.get_value();
+			this->result_string = to_string(this->result_int);
+		}
+	}
+	else if (regex_match(this->source, is_number))
+	{
+		this->cell_type = Cell::NUMBER;
+		this->result_int = stoi(this->source);
+		this->result_string = this->source;
+	}
+	else
+	{
+		this->cell_type = Cell::ERROR;
+		this->error_type = ErrorType::INCORRECT_CELL_FORMAT;
+	}
+
 }
 Cell::Type Cell::get_type()
 {
@@ -21,15 +60,34 @@ Cell::Type Cell::get_type()
 
 int Cell::get_int()
 {
-	throw "Not implemented";
+	if (cell_type == Cell::NUMBER)
+		return this->result_int;
+
+	throw (string("ERROR: This cell is not number"));
 }
+
 const string Cell::get_string()
 {
-	return source;
-	//throw "Not implemented";
+	if (cell_type == Cell::ERROR)
+	{
+#ifdef TEST_MODE
+		return "#";
+#else
+		return ErrorType::get_comment(error_type);
+#endif
+	}
+	else if (cell_type != Cell::UNKNOWN)
+	{
+		return this->result_string;
+	}
+	else
+	{
+		throw (string("ERROR: This cell has not string result"));
+	}
 }
 
 void Cell::set_initial_value(const char * source)
 {
+	cell_type = Cell::UNKNOWN;
 	this->source = source;
 }
