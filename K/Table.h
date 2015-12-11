@@ -34,7 +34,7 @@ public:
 
 	Cell* getCell(int row, int col);
 private:
-	Cell ** table;
+	vector< vector<Cell> > table;
 	void read_size();
 
 protected:
