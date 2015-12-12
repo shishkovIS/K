@@ -44,9 +44,16 @@ void Cell::compute()
 		}
 		else
 		{
-			this->cell_type = Cell::NUMBER;
-			this->result_int = em.get_value();
-			this->result_string = to_string(this->result_int);
+			if (this->cell_type = Cell::NUMBER)
+			{
+				this->result_int = em.get_value();
+				this->result_string = to_string(this->result_int);
+			}
+			else
+			{
+				this->cell_type = Cell::STRING;
+				this->result_string = em.get_value_string();
+			}
 		}
 		processing = false;
 	}

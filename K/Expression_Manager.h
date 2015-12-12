@@ -17,6 +17,7 @@ public:
 	bool compute();
 	ErrorType::Type get_error();
 	int get_value();
+	string get_value_string();
 	
 
 	Expression_Manager(string expression);
@@ -26,10 +27,12 @@ private:
 	vector<pair<string, char>> operands;
 	int result;
 	string expression;
+	Cell::Type type;
 
 	Expression_Manager();
 
 	bool check_expression();
+	bool string_check_expression();
 	bool split_expression();
 	
 	int get_signed_operand(int old_value,int index);
@@ -38,5 +41,6 @@ private:
 	int get_row(string operand);
 	int get_col(string operand);
 	int get_cell_value(string operand);
+	Cell::Type get_cell_type(string operand);
 };
 

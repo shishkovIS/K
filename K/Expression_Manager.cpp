@@ -14,44 +14,54 @@ Expression_Manager::Expression_Manager(string expression)
 	this->expression = expression;
 }
 
+
 bool Expression_Manager::split_expression()
 {
-	
-	if (!check_expression())
+	if ((!check_expression())&&(!string_check_expression()))
 		return false;
-	
+	if ((check_expression()) && (string_check_expression()))
+	{
+
+	}
 	string str = this->expression;
 	
 	std::size_t prev_pos = 0;
 	std::size_t pos;
 	char current_delimiter;
-
-	while ((pos = str.find_first_of("+-/*", prev_pos)) != std::string::npos)
-	{
-		if (pos > prev_pos)
+		while ((pos = str.find_first_of("+-/*", prev_pos)) != std::string::npos)
 		{
-			current_delimiter = prev_pos == 0 ? '+' : str[prev_pos - 1];
-			operands.push_back(make_pair(str.substr(prev_pos, pos - prev_pos), current_delimiter));
+				if (pos > prev_pos)
+				{
+					current_delimiter = prev_pos == 0 ? '+' : str[prev_pos - 1];
+					operands.push_back(make_pair(str.substr(prev_pos, pos - prev_pos), current_delimiter));
+				}
+				prev_pos = pos + 1;
 		}
-		prev_pos = pos + 1;
-	}
-	if (prev_pos< str.length()) {
-		char last_delimiter = prev_pos == 0 ? '+' : str[prev_pos - 1];
-		operands.push_back(make_pair(str.substr(prev_pos, std::string::npos), last_delimiter));
-	}
+		if (prev_pos< str.length()) {
+			char last_delimiter = prev_pos == 0 ? '+' : str[prev_pos - 1];
+			operands.push_back(make_pair(str.substr(prev_pos, std::string::npos), last_delimiter));
+		}
 	return true;
 }
 
 bool Expression_Manager::check_expression()
 {
-	regex expression_regex("^((((0|([1-9][0-9]*))|([A-Z][1-9]))(\\+|-|\\*|\\/))*((0|([1-9][0-9]*))|([A-Z][1-9])))$");	
+	regex expression_regex("^((((0|([1-9][0-9]*))|([A-Z][A-Z]*[1-9][1-9]*))(\\+|-|\\*|\\/))*((0|([1-9][0-9]*))|([A-Z][A-Z]*[1-9][1-9]*)))$");	
 	
 	return regex_match(this->expression, expression_regex);
 	
-	
 }
+bool Expression_Manager::string_check_expression()
+{
+	regex expression_regex("^(((([A-Z][A-Z]*)|([A-Z][A-Z]*[1-9][1-9]*))(\\+|-|\\*|\\/))*(([A-Z][A-Z]*)|([A-Z][A-Z]*[1-9][1-9]*)))$");
+
+	return regex_match(this->expression, expression_regex);
+}
+Cell::Type get_cell_type(string operand)
 bool Expression_Manager::compute()
 {
+	const regex is_number("^[0-9]+$");
+	const regex is_cell("^[A-Z][A-Z]*[1-9][0-9]*$");
 	if (!split_expression())
 	{
 		this->error = ErrorType::PARSING_ERROR;
@@ -61,6 +71,19 @@ bool Expression_Manager::compute()
 	int expression_value = 0;
 
 	int vector_size = this->operands.size();
+	if(regex_match(operands[0].first, is_number))
+	{
+		type = Cell::NUMBER;
+	}
+	else
+	if (regex_match(operands[0].first, is_cell))
+	{
+		type = get_cell_type(operands[0].first);
+	}
+	else
+	{
+		type = Cell::STRING;
+	}
 	for (int i = 0; i<vector_size; i++)
 	{
 		
