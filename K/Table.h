@@ -13,7 +13,7 @@ class Cell;
 class Table //Singleton
 {
 public: 
-	int row; //table size
+	int row; //table 
 	int col; //table size
 	
  	static Table & Instance()
