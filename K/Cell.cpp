@@ -104,5 +104,4 @@ const string Cell::get_string()
 void Cell::set_initial_value(const char * source)
 {
 	this->source = source;
-	cout << this->source.size() << endl;
 }
