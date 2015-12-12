@@ -74,7 +74,9 @@ void Table::write()
 	{
 		for (int x = 0; x < col; x++)
 		{
-			cout << table[y][x].get_string() << "\t";
+			cout << table[y][x].get_string();
+			if (x != col - 1)
+				cout << '\t';
 		}
 		cout << endl;
 	}
