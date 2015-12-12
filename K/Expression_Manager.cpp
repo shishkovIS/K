@@ -85,7 +85,7 @@ int Expression_Manager::get_signed_operand(int old_value, int index)
 	int current_value = 0;
 
 	if (check_number(operands[index].first))
-		current_value = stoi(operands[index].first);
+		current_value = stoi(operands[index].first);//kosyak
 	else if (check_cell(operands[index].first))
 		current_value = get_cell_value(operands[index].first);
 	else

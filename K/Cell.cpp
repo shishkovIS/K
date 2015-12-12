@@ -15,6 +15,7 @@ void Cell::compute()
 {
 	
 	const regex is_number("^[0-9]+$");
+
 	if (this->cell_type != Cell::UNKNOWN)
 		return;
 	if (this->processing)

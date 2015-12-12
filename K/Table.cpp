@@ -110,8 +110,11 @@ void Table::read_size()
 		std::string piece2 = pieces_match[2].str();
 		col = stoi(piece2);
 		row = stoi(piece1);
+		if ((col == 0) || (row == 0))
+			throw (string("Error while parsing first string"));
 		return;
 	}
+	
 	throw (string("Error while parsing first string"));
 }
 
