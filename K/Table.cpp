@@ -21,7 +21,7 @@ void Table::read()
 		for (int colNumber = 0; colNumber < col; colNumber++)
 		{
 			for (t = cin.get();
-			t != '\t' && t != '\n' && t != EOF;
+			    t != '\t' && t != '\n' && t != EOF;
 				t = cin.get())
 			{
 				buff.push_back(t);

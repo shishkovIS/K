@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iostream>
+
+using std::string ;
+
 class ErrorType
 {
 
@@ -14,11 +18,11 @@ public:
 	};
 	
 	/// get string with comment for error (ErrorType::Type)
-	static const char * get_comment(Type type);
+	static const string& get_comment(Type type);
 
 private:
 	ErrorType();
-	static const char * const type_comment[];
+	static const string type_comment[];
 
 
 };

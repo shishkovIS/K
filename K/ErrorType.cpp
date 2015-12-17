@@ -1,6 +1,6 @@
 #include "ErrorType.h"
 
-const char * const ErrorType::type_comment[] = {
+const string ErrorType::type_comment[] = {
 	"",							//NO_ERRORS
 	"#Looping",					//LOOPING
 	"#Incorrect_cell_type",		//INCORRECT_CELL_TYPE
@@ -10,7 +10,7 @@ const char * const ErrorType::type_comment[] = {
 };
 
 
-const char * ErrorType::get_comment(Type type)
+const string& ErrorType::get_comment(Type type)
 {
 	return type_comment[type];
 }
