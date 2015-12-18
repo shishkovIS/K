@@ -27,7 +27,7 @@ public:
 	ErrorType::Type get_error();
 
 	// Get cell value
-	const string get_string();
+	const string& get_string() const;
 	// Get cell value
 	int get_int();
 	

@@ -20,15 +20,15 @@ void Table::read()
 	{
 		for (int colNumber = 0; colNumber < col; colNumber++)
 		{
-			for (t = cin.get();
+			for(t = getchar();
 			    t != '\t' && t != '\n' && t != EOF;
-				t = cin.get())
+				t = getchar())
 			{
 				buff.push_back(t);
 			}
 
 			if ((t == '\n' || t == EOF) &&
-				(colNumber < (col - 1))) // not last column
+				(colNumber != (col - 1))) // not last column
 			{
 				throw (string("Some cells are missing in the row "+std::to_string(lineNumber+1)));
 			}
@@ -45,38 +45,40 @@ void Table::read()
 			throw (string("Wrong cell number in the row "+std::to_string(lineNumber+1)));
 		}
 		if (t == EOF &&
-			lineNumber < (row - 1)) // not last row
+			lineNumber != (row - 1)) // not last row
 		{
 			throw (string("Some rows are missing"));
 		}
 	}
 #ifdef CONSOLE_DEBUG
-	if (t != EOF && (t=cin.get()) != EOF && t != '\n') // there are else rows 
+	if (t != EOF && (t = getchar()) != EOF && t != '\n') // there are else rows 
 #else
-	if (t != EOF && (t = cin.get()) != EOF) // there are else rows 
+	if (t != EOF && (t = getchar()) != EOF) // there are else rows 
 #endif
 	{
 		throw (string("There are some excess rows"));
 	}
-
 }
 
 void Table::calculate()
 {
-	for (int i = 0; i < row; i++)
-		for (int j = 0; j < col; j++)
-			table[i][j].compute();
+    for (auto &line : table)
+		for (auto &cell : line)
+			cell.compute();
 }
 
 void Table::write()
 {
-	for (int y = 0; y < row; y++)
+    for (auto &line : table)
 	{
-		for (int x = 0; x < col; x++)
+        bool is_first_cell = true;
+		for (auto &cell : line)
 		{
-			cout << table[y][x].get_string();
-			if (x != col - 1)
+            if (!is_first_cell)
 				cout << '\t';
+            else
+                is_first_cell = false;
+			cout << cell.get_string();
 		}
 		cout << endl;
 	}

@@ -81,7 +81,7 @@ int Cell::get_int()
 	throw (string("ERROR: This cell is not number"));
 }
 
-const string Cell::get_string()
+const string& Cell::get_string() const
 {
 	if (cell_type == Cell::ERROR)
 	{

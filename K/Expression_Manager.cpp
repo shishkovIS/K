@@ -12,6 +12,7 @@ Expression_Manager::~Expression_Manager()
 Expression_Manager::Expression_Manager(string expression)
 {
 	this->expression = expression;
+    this->error = ErrorType::NO_ERRORS;
 }
 
 bool Expression_Manager::split_expression()
