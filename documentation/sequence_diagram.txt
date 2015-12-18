@@ -1,0 +1,60 @@
+Tool:	https://www.websequencediagrams.com/
+
+Code:
+
+title K-Task Sequence Diagram
+Participant main() as main
+Participant table: Table as t
+Participant Cell as c
+Participant em : Expression_Manager as em
+
+
+main->+*t: Instance()
+t->-main: table_instance
+
+
+main->+t: read()
+loop for each row
+    loop for each col
+        t->*+c: Cell()
+        c->-t:
+        t->+c: set_initial_value(source)
+        c->-t:
+    end
+end
+t->-main:
+
+main->+t: calculate()
+loop for each cell
+    t->+c: compute()
+    opt if cell is expression
+        c->*+em: Expression_Manager(expression)
+        em->-c:
+        c->+em: compute()
+        em->+em: split_expression()
+        deactivate em
+        
+        loop for each cell_reference in expression
+            em->+t: get_cell(row, col)
+            t->-em: cell_address
+        end
+        em->-c: is_successful
+        alt if ! is_successful 
+            c->+em: get_error()
+            em->-c: error
+        else else
+            c->+em: get_value()
+            em->-c: result
+        end
+        destroy em
+    end
+end
+c->-t:
+t->-main:
+
+main->+t: write()
+loop for each cell
+    t->+c: get_string()
+    c->-t:  result_string
+end
+t->-main:
