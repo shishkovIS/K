@@ -83,12 +83,13 @@ void Table::write()
 		cout << endl;
 	}
 }
-Cell* Table::getCell(int row, int col)
+vector<Cell>::iterator &
+    Table::getCell(int row, int col)
 {
 	if (row >= 1 && row <= this->row &&
 		col >= 0 && col < this->col)
-		return &table[row-1][col];
-	return NULL;
+		return (table.begin() + (row-1).begin() + col;
+	return vector<Cell>::end();
 }
 
 

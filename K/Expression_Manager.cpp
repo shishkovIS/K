@@ -119,30 +119,29 @@ int Expression_Manager::get_signed_operand(int old_value, int index)
 
 int Expression_Manager::get_cell_value(string operand)
 {
-	Cell* cell;
 	int row = get_row(operand);
 	int col = get_col(operand);
 	
-	Table& table = Table::Instance();
-	cell = table.getCell(row, col);
-	if (cell == NULL)
+	Table &table = Table::Instance();
+	auto cell = table.getCell(row, col);
+	if (cell == vector<Cell>::end())
 	{
 		this->error = ErrorType::PARSING_ERROR;
 		return 0;
 	}
 
-	if (cell->get_type() == Cell::UNKNOWN)
-		cell->compute();
-	if ((cell->get_type() == Cell::ERROR) || (cell->get_type() == Cell::STRING) || (cell->get_type() == Cell::EMPTY))
+	if (cell.get_type() == Cell::UNKNOWN)
+		cell.compute();
+	if ((cell.get_type() == Cell::ERROR) || (cell.get_type() == Cell::STRING) || (cell.get_type() == Cell::EMPTY))
 	{
-		if (cell->get_error() == ErrorType::LOOPING)
+		if (cell.get_error() == ErrorType::LOOPING)
 			this->error = ErrorType::LOOPING;
 		else
 			this->error = ErrorType::INCORRECT_CELL_TYPE;
 		return 0;
 	} 
 
-	return cell->get_int();
+	return cell.get_int();
 
 }
 

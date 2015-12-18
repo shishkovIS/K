@@ -35,7 +35,8 @@ public:
 	void calculate();
 	void write();
 
-	Cell* getCell(int row, int col);
+vector< vector<Cell> >::iterator &
+	getCell(int row, int col);
 private:
 	vector< vector<Cell> > table;
 	void read_size();
